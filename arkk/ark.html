@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Værksted Prisberegner</title>
+  <style>
+    body {
+      background: url('https://img.gta5-mods.com/q95/images/vapid-speedo-express-auto-exotic-livery/222dac-Speedo3.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 600;
+      display: grid;
+      grid-template-areas:
+        "mods mods kits service total";
+      grid-template-columns: -0.5fr 1.5fr -1fr -1fr 1fr;
+      gap: 70px;
+      padding: 40px;
+      color: #f5f5f7;
+      justify-items: center;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(28, 28, 30, 0.7);
+      z-index: -1;
+    }
+
+    .box {
+      background: rgba(44, 44, 46, 0.8);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .item span {
+      flex: 1;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .priceDisplay {
+      font-size: 3em;
+      font-weight: 700;
+      text-align: center;
+      padding: 20px;
+      background: #3a3a3c;
+      color: #ffffff;
+      border-radius: 16px;
+    }
+
+    .checkbox, .numberInput {
+      transform: scale(1.3);
+      cursor: pointer;
+      accent-color: #0a84ff;
+    }
+
+    .numberInput {
+      width: 50px;
+      text-align: right;
+      font-size: 1.1em;
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      padding: 4px 8px;
+      background: #1c1c1e;
+      color: #f5f5f7;
+    }
+
+    label {
+      font-size: 1em;
+      font-weight: 700;
+    }
+
+    .header {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #3a3a3c;
+      padding-bottom: 10px;
+    }
+
+    #left-box { grid-area: mods; }
+    #kits-box { grid-area: kits; }
+    #service-box { grid-area: service; }
+    #total-box { grid-area: total; align-self: start; }
+
+    .button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      background-color: #661915;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #851513;
+    }
+  </style>
+</head>
+<body>
+  <div id="left-box" class="box">
+    <div class="header">Modifikationer</div>
+    <div class="item"><span>1000 | Rengøring</span><input class="checkbox" type="checkbox" data-price="1000"></div>
+    <div class="item"><span>2500 | Reparation</span><input class="checkbox" type="checkbox" data-price="2500"></div>
+    <div class="item"><span>13125 | Turbo</span><input class="checkbox" type="checkbox" data-price="13125"></div>
+    <div class="item"><span>14375 | I4</span><input class="checkbox" type="checkbox" data-price="14375"></div>
+    <div class="item"><span>16125 | V6</span><input class="checkbox" type="checkbox" data-price="16125"></div>
+    <div class="item"><span>3275 | V8</span><input class="checkbox" type="checkbox" data-price="3275"></div>
+    <div class="item"><span>4525 | V12</span><input class="checkbox" type="checkbox" data-price="4525"></div>
+    <div class="item"><span>12625 | Keramiske bremser</span><input class="checkbox" type="checkbox" data-price="12625"></div>
+    <div class="item"><span>6599 | FWD</span><input class="checkbox" type="checkbox" data-price="6599"></div>
+    <div class="item"><span>8295 | RWD</span><input class="checkbox" type="checkbox" data-price="8295"></div>
+    <div class="item"><span>11500 | AWD</span><input class="checkbox" type="checkbox" data-price="11500"></div>
+    <div class="item"><span>17999 | 4x Fælge + Dæk</span><input class="checkbox" type="checkbox" data-price="17999"></div>
+    <div class="item"><span>2000 | Lyskontroller</span><input class="checkbox" type="checkbox" data-price="2000"></div>
+    <div class="item"><span>5000 | Slick/Offroad dæk osv</span><input class="checkbox" type="checkbox" data-price="5000"></div>
+    <div class="item"><span>12500 | Nitro Installationskit</span><input class="checkbox" type="checkbox" data-price="12500"></div>
+    <div class="item"><span>7600 | Stance Kit</span><input class="checkbox" type="checkbox" data-price="7600"></div>
+    <div class="item"><span>6500 | Drift Tuning</span><input class="checkbox" type="checkbox" data-price="6500"></div>
+  </div>
+
+  <div id="kits-box" class="box">
+    <div class="header">Modifikationer</div>
+    <div class="item"><span>2000 | Performance dele pr. stk</span><input class="numberInput" type="number" data-price="2000" value="0"></div>
+    <div class="item"><span>1500 | Ekstra dele pr. stk</span><input class="numberInput" type="number" data-price="1500" value="0"></div>
+    <div class="item"><span>2500 | Lakering pr. stk</span><input class="numberInput" type="number" data-price="2500" value="0"></div>
+    <div class="item"><span>5000 | Nitroflaske pr. stk</span><input class="numberInput" type="number" data-price="5000" value="0"></div>
+    <div class="item"><span>800 | Kosmetisk pr. stk</span><input class="numberInput" type="number" data-price="800" value="0"></div>
+  </div>
+
+  <div id="service-box" class="box">
+    <div class="header">Service</div>
+    <div class="item"><span>35999 | Fuld Service</span><input class="checkbox" type="checkbox" data-price="35999"></div>
+    <div class="item"><span>2299 | Olie Skift</span><input class="checkbox" type="checkbox" data-price="2299"></div>
+    <div class="item"><span>15999 | 4x Dæk</span><input class="checkbox" type="checkbox" data-price="15999"></div>
+    <div class="item"><span>7899 | Kobling</span><input class="checkbox" type="checkbox" data-price="7899"></div>
+    <div class="item"><span>2395 | Luftfilter</span><input class="checkbox" type="checkbox" data-price="2395"></div>
+    <div class="item"><span>1595 | 4x Tændrør</span><input class="checkbox" type="checkbox" data-price="1595"></div>
+    <div class="item"><span>4995 | Undervogn</span><input class="checkbox" type="checkbox" data-price="4995"></div>
+    <div class="item"><span>8595 | 4x Bremseklodser</span><input class="checkbox" type="checkbox" data-price="8595"></div>
+  </div>
+
+  <div id="total-box" class="box">
+    <div class="header">Total</div>
+    <div class="priceDisplay" id="totalPrice">0</div>
+    <div class="item">
+      <label for="discount">Medarbejderrabat</label>
+      <input type="checkbox" id="discount">
+    </div>
+    <button class="button" onclick="resetAll()">Ryd alt</button>
+  </div>
+
+  <script>
+    function formatPrice(number) {
+      return number.toLocaleString('da-DK');
+    }
+
+    function calculateTotal() {
+      let total = 0;
+      document.querySelectorAll('.checkbox:checked').forEach(el => {
+        total += parseFloat(el.getAttribute('data-price')) || 0;
+      });
+      document.querySelectorAll('.numberInput').forEach(el => {
+        const val = parseInt(el.value);
+        if (!isNaN(val) && val > 0) {
+          const unitPrice = parseFloat(el.getAttribute('data-price'));
+          total += unitPrice * val;
+        }
+      });
+      if (document.getElementById('discount').checked) {
+        total *= 0.8;
+      }
+      document.getElementById('totalPrice').textContent = formatPrice(Math.round(total));
+    }
+
+    function resetAll() {
+      document.querySelectorAll('.checkbox').forEach(cb => cb.checked = false);
+      document.querySelectorAll('.numberInput').forEach(input => input.value = 0);
+      document.getElementById('discount').checked = false;
+      calculateTotal();
+    }
+
+    document.querySelectorAll('.checkbox, .numberInput, #discount').forEach(el => {
+      el.addEventListener('input', calculateTotal);
+      el.addEventListener('change', calculateTotal);
+    });
+
+    calculateTotal();
+  </script>
+</body>
+</html>
